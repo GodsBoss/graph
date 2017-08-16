@@ -56,3 +56,16 @@ func TestRemovingNodeNotInGraphFails(t *testing.T) {
 		t.Errorf("Expected removing %+v from %+v to fail", node, gr)
 	}
 }
+
+func TestSimpleGraphAllowsConnectingNodes(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	from := graph.NewNode()
+	to := graph.NewNode()
+	gr.AddNode(from)
+	gr.AddNode(to)
+	err := gr.Connect(from, to)
+
+	if err != nil {
+		t.Errorf("Expected connecting %+v and %+v in %+v not to return error, but got %+v", from, to, gr, err)
+	}
+}
