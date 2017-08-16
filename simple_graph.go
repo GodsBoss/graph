@@ -28,3 +28,8 @@ func (graph *SimpleGraph) ContainsNode(node Node) bool {
 func (graph *SimpleGraph) RemoveNode(node Node) error {
 	return graph.nodes.Remove(node)
 }
+
+// Nodes exposes the graph's nodes as a NodeSet.
+func (graph *SimpleGraph) Nodes() NodeSet {
+	return graph.nodes
+}
