@@ -50,6 +50,11 @@ func (set NodeSet) Remove(node Node) error {
 	return nil
 }
 
+// Nodes returns the node set. Lets NodeSet implement NodesExposer.
+func (set NodeSet) Nodes() NodeSet {
+	return set
+}
+
 // NodesExposer exposes its nodes.
 type NodesExposer interface {
 	// Nodes returns all nodes. The returned set must not be changed.
