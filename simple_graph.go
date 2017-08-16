@@ -37,7 +37,15 @@ func (graph *SimpleGraph) ContainsNode(node Node) bool {
 // RemoveNode removes node from the graph. Returns an error if the graph did
 // not contain that node.
 func (graph *SimpleGraph) RemoveNode(node Node) error {
-	return graph.nodes.Remove(node)
+	err := graph.nodes.Remove(node)
+	if err != nil {
+		return err
+	}
+	for edgeNode := range graph.edges[node] {
+		graph.edges[edgeNode].Remove(node)
+	}
+	delete(graph.edges, node)
+	return nil
 }
 
 // Nodes exposes the graph's nodes as a NodeSet.
