@@ -15,6 +15,11 @@ type Nodes []Node
 // NodeSet is a non-ordered set of nodes. Nodes may appear only once in a node set.
 type NodeSet map[Node]bool
 
+// NewNodeSet creates a new, empty node set.
+func NewNodeSet() NodeSet {
+	return make(NodeSet)
+}
+
 // Add adds a node to this set and returns wether the node was successfully added
 // or not, i.e. if that node was not already contained in the set.
 func (set NodeSet) Add(node Node) bool {
