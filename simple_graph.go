@@ -18,3 +18,8 @@ func (graph *SimpleGraph) AddNode() Node {
 	graph.nodes.Add(node)
 	return node
 }
+
+// ContainsNode checks wether graph contains the node.
+func (graph *SimpleGraph) ContainsNode(node Node) bool {
+	return graph.nodes.Contains(node)
+}
