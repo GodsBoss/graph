@@ -23,6 +23,12 @@ func (set NodeSet) Add(node Node) bool {
 	return !found
 }
 
+// Contains returns wether a node is contained in a set of nodes.
+func (set NodeSet) Contains(node Node) bool {
+	_, found := set[node]
+	return found
+}
+
 // NodesExposer exposes its nodes.
 type NodesExposer interface {
 	// Nodes returns all nodes. The returned list must not be changed.
