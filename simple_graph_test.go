@@ -59,8 +59,7 @@ func TestRemovingNodeNotInGraphFails(t *testing.T) {
 
 func TestSimpleGraphAllowsConnectingNodes(t *testing.T) {
 	gr := graph.NewSimpleGraph()
-	from := graph.NewNode()
-	to := graph.NewNode()
+	from, to := twoNodes()
 	gr.AddNode(from)
 	gr.AddNode(to)
 	err := gr.Connect(from, to)
@@ -68,4 +67,53 @@ func TestSimpleGraphAllowsConnectingNodes(t *testing.T) {
 	if err != nil {
 		t.Errorf("Expected connecting %+v and %+v in %+v not to return error, but got %+v", from, to, gr, err)
 	}
+}
+
+func TestSimpleGraphFailsConnectingNodesIfBothAreNotContained(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	from, to := twoNodes()
+	err := gr.Connect(from, to)
+
+	if err == nil {
+		t.Errorf("Expected connecting %+v and %+v in %+v to fail", from, to, gr)
+	}
+}
+
+func TestSimpleGraphFailsConnectingNodesIfFromIsNotContained(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	from, to := twoNodes()
+	gr.AddNode(to)
+	err := gr.Connect(from, to)
+
+	if err == nil {
+		t.Errorf("Expected connecting %+v and %+v in %+v to fail", from, to, gr)
+	}
+}
+
+func TestSimpleGraphFailsConnectingNodesIfToIsNotContained(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	from, to := twoNodes()
+	gr.AddNode(from)
+	err := gr.Connect(from, to)
+
+	if err == nil {
+		t.Errorf("Expected connecting %+v and %+v in %+v to fail", from, to, gr)
+	}
+}
+
+func TestSimpleGraphFailsConnectingAlreadyConnectedNodes(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	from, to := twoNodes()
+	gr.AddNode(from)
+	gr.AddNode(to)
+	gr.Connect(from, to)
+	err := gr.Connect(from, to)
+
+	if err == nil {
+		t.Errorf("Expected connecting %+v and %+v in %+v to fail", from, to, gr)
+	}
+}
+
+func twoNodes() (graph.Node, graph.Node) {
+	return graph.NewNode(), graph.NewNode()
 }
