@@ -114,6 +114,37 @@ func TestSimpleGraphFailsConnectingAlreadyConnectedNodes(t *testing.T) {
 	}
 }
 
+func TestSimpleGraphDetectsIfTwoNodesAreNotConnected(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	from, to := twoNodes()
+	gr.AddNode(from)
+	gr.AddNode(to)
+	connected, err := gr.Connected(from, to)
+
+	if connected {
+		t.Errorf("Expected %+v and %+v in %+v not to be connected", from, to, gr)
+	}
+	if err != nil {
+		t.Errorf("Expected error not to be nil, but got %+v", err)
+	}
+}
+
+func TestSimpleGraphDetectsIfTwoNodesAreConnected(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	from, to := twoNodes()
+	gr.AddNode(from)
+	gr.AddNode(to)
+	gr.Connect(from, to)
+	connected, err := gr.Connected(from, to)
+
+	if !connected {
+		t.Errorf("Expected %+v and %+v in %+v to be connected", from, to, gr)
+	}
+	if err != nil {
+		t.Errorf("Expected error not to be nil, but got %+v", err)
+	}
+}
+
 func twoNodes() (graph.Node, graph.Node) {
 	return graph.NewNode(), graph.NewNode()
 }

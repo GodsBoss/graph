@@ -60,6 +60,19 @@ func (graph *SimpleGraph) Connect(from Node, to Node) error {
 	return nil
 }
 
+// Connected returns wether two nodes of the graph are connected. If one or both
+// nodes are not part of the graph, an error is returned.
+func (graph *SimpleGraph) Connected(from Node, to Node) (bool, error) {
+	err := graph.failIfNotBothNodesInGraph(from, to)
+	if err != nil {
+		return false, err
+	}
+	if graph.edges[from].Contains(to) {
+		return true, nil
+	}
+	return false, nil
+}
+
 func (graph *SimpleGraph) failIfNotBothNodesInGraph(from Node, to Node) error {
 	fromOK := graph.ContainsNode(from)
 	toOK := graph.ContainsNode(to)
