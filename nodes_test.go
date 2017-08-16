@@ -24,3 +24,14 @@ func TestNodeSetDoesContainAddedNode(t *testing.T) {
 		t.Errorf("Expected node set %+v to contain %+v", set, node)
 	}
 }
+
+func TestNodeSetDoesNotContainRemovedNode(t *testing.T) {
+	set := graph.NewNodeSet()
+	node := graph.NewNode()
+	set.Add(node)
+	set.Remove(node)
+
+	if set.Contains(node) {
+		t.Errorf("Expected node set %+v not to contain %+v", set, node)
+	}
+}

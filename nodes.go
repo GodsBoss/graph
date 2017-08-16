@@ -40,6 +40,16 @@ func (set NodeSet) Contains(node Node) bool {
 	return found
 }
 
+// Remove removes the node from this set. Returns an error if that node was
+// not contained in the set.
+func (set NodeSet) Remove(node Node) error {
+	if !set.Contains(node) {
+		return fmt.Errorf("node %+v not contained", node)
+	}
+	delete(set, node)
+	return nil
+}
+
 // NodesExposer exposes its nodes.
 type NodesExposer interface {
 	// Nodes returns all nodes. The returned list must not be changed.
