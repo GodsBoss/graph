@@ -5,12 +5,16 @@ import (
 )
 
 // Node is the node of a graph.
-type Node *int
+type Node struct {
+	id *int
+}
 
 // NewNode creates a new node.
 func NewNode() Node {
 	var i int
-	return Node(&i)
+	return Node{
+		id: &i,
+	}
 }
 
 // Nodes is list of nodes. Duplicates are allowed.
