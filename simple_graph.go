@@ -15,6 +15,6 @@ func NewSimpleGraph() *SimpleGraph {
 // AddNode adds a node to the graph and returns that node.
 func (graph *SimpleGraph) AddNode() Node {
 	node := NewNode()
-	graph.nodes[node] = true
+	graph.nodes.Add(node)
 	return node
 }
