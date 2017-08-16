@@ -73,6 +73,21 @@ func (graph *SimpleGraph) Connected(from Node, to Node) (bool, error) {
 	return false, nil
 }
 
+// Disconnect removes and edge between two nodes. Returns an error if one or both
+// nodes are not contained in the graph or if the nodes are not connected.
+func (graph *SimpleGraph) Disconnect(from Node, to Node) error {
+	connected, err := graph.Connected(from, to)
+	if err != nil {
+		return err
+	}
+	if !connected {
+		return fmt.Errorf("Nodes are not connected")
+	}
+	graph.edges[from].Remove(to)
+	graph.edges[to].Remove(from)
+	return nil
+}
+
 func (graph *SimpleGraph) failIfNotBothNodesInGraph(from Node, to Node) error {
 	fromOK := graph.ContainsNode(from)
 	toOK := graph.ContainsNode(to)
