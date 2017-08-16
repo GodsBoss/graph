@@ -12,11 +12,10 @@ func NewSimpleGraph() *SimpleGraph {
 	}
 }
 
-// AddNode adds a node to the graph and returns that node.
-func (graph *SimpleGraph) AddNode() Node {
-	node := NewNode()
-	graph.nodes.Add(node)
-	return node
+// AddNode adds a node to the graph. Signals an error if that node was already
+// contained in the graph.
+func (graph *SimpleGraph) AddNode(node Node) error {
+	return graph.nodes.Add(node)
 }
 
 // ContainsNode checks wether graph contains the node.

@@ -17,7 +17,8 @@ func TestGraphDoesNotContainUnknownNode(t *testing.T) {
 
 func TestGraphContainsAddedNode(t *testing.T) {
 	gr := graph.NewSimpleGraph()
-	node := gr.AddNode()
+	node := graph.NewNode()
+	gr.AddNode(node)
 
 	if !gr.ContainsNode(node) {
 		t.Errorf("Expected %+v to contain %+v", gr, node)

@@ -1,5 +1,9 @@
 package graph
 
+import (
+	"fmt"
+)
+
 // Node is the node of a graph.
 type Node *int
 
@@ -20,12 +24,14 @@ func NewNodeSet() NodeSet {
 	return make(NodeSet)
 }
 
-// Add adds a node to this set and returns wether the node was successfully added
-// or not, i.e. if that node was not already contained in the set.
-func (set NodeSet) Add(node Node) bool {
+// Add adds a node to this set. Returns an error if that node was already in the set.
+func (set NodeSet) Add(node Node) error {
 	_, found := set[node]
+	if found {
+		return fmt.Errorf("node %+v already contained", node)
+	}
 	set[node] = true
-	return !found
+	return nil
 }
 
 // Contains returns wether a node is contained in a set of nodes.
