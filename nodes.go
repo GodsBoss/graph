@@ -9,6 +9,13 @@ type Node struct {
 	id *int
 }
 
+// Nodes returns itself as a NodeSet. Lets node implement NodesExposer.
+func (node Node) Nodes() NodeSet {
+	set := NewNodeSet()
+	set.Add(node)
+	return set
+}
+
 // NewNode creates a new node.
 func NewNode() Node {
 	var i int
