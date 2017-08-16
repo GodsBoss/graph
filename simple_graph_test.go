@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestGraphDoesNotContainUnknownNode(t *testing.T) {
+func TestSimpleGraphDoesNotContainUnknownNode(t *testing.T) {
 	gr := graph.NewSimpleGraph()
 	node := graph.NewNode()
 
@@ -15,7 +15,7 @@ func TestGraphDoesNotContainUnknownNode(t *testing.T) {
 	}
 }
 
-func TestGraphContainsAddedNode(t *testing.T) {
+func TestSimpleGraphContainsAddedNode(t *testing.T) {
 	gr := graph.NewSimpleGraph()
 	node := graph.NewNode()
 	gr.AddNode(node)
@@ -25,7 +25,7 @@ func TestGraphContainsAddedNode(t *testing.T) {
 	}
 }
 
-func TestGraphDoesNotContainRemovedNodes(t *testing.T) {
+func TestSimpleGraphDoesNotContainRemovedNodes(t *testing.T) {
 	gr := graph.NewSimpleGraph()
 	node := graph.NewNode()
 	gr.AddNode(node)
