@@ -46,3 +46,13 @@ func TestSimpleGraphDoesNotContainRemovedNodes(t *testing.T) {
 		t.Errorf("Expected %+v not to contain %+v", gr, node)
 	}
 }
+
+func TestRemovingNodeNotInGraphFails(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	node := graph.NewNode()
+	err := gr.RemoveNode(node)
+
+	if err == nil {
+		t.Errorf("Expected removing %+v from %+v to fail", node, gr)
+	}
+}
