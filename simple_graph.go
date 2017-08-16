@@ -48,6 +48,19 @@ func (graph *SimpleGraph) Nodes() NodeSet {
 // Connect creates an edge between the from and to node. Returns an error if
 // the nodes are already connected or either node is not within the graph.
 func (graph *SimpleGraph) Connect(from Node, to Node) error {
+	err := graph.failIfNotBothNodesInGraph(from, to)
+	if err != nil {
+		return err
+	}
+	if graph.edges[from].Contains(to) {
+		return fmt.Errorf("Nodes already connected")
+	}
+	graph.edges[from].Add(to)
+	graph.edges[to].Add(from)
+	return nil
+}
+
+func (graph *SimpleGraph) failIfNotBothNodesInGraph(from Node, to Node) error {
 	fromOK := graph.ContainsNode(from)
 	toOK := graph.ContainsNode(to)
 	if (!fromOK) && (!toOK) {
@@ -59,10 +72,5 @@ func (graph *SimpleGraph) Connect(from Node, to Node) error {
 	if !toOK {
 		return fmt.Errorf("to node not contained in graph")
 	}
-	if graph.edges[from].Contains(to) {
-		return fmt.Errorf("Nodes already connected")
-	}
-	graph.edges[from].Add(to)
-	graph.edges[to].Add(from)
 	return nil
 }
