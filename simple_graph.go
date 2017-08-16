@@ -22,3 +22,9 @@ func (graph *SimpleGraph) AddNode(node Node) error {
 func (graph *SimpleGraph) ContainsNode(node Node) bool {
 	return graph.nodes.Contains(node)
 }
+
+// RemoveNode removes node from the graph. Returns an error if the graph did
+// not contain that node.
+func (graph *SimpleGraph) RemoveNode(node Node) error {
+	return graph.nodes.Remove(node)
+}

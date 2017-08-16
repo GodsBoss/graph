@@ -24,3 +24,14 @@ func TestGraphContainsAddedNode(t *testing.T) {
 		t.Errorf("Expected %+v to contain %+v", gr, node)
 	}
 }
+
+func TestGraphDoesNotContainRemovedNodes(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	node := graph.NewNode()
+	gr.AddNode(node)
+	gr.RemoveNode(node)
+
+	if gr.ContainsNode(node) {
+		t.Errorf("Expected %+v not to contain %+v", gr, node)
+	}
+}
