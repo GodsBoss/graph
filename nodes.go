@@ -52,6 +52,6 @@ func (set NodeSet) Remove(node Node) error {
 
 // NodesExposer exposes its nodes.
 type NodesExposer interface {
-	// Nodes returns all nodes. The returned list must not be changed.
+	// Nodes returns all nodes. The returned set must not be changed.
 	Nodes() NodeSet
 }
