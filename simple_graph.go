@@ -115,3 +115,8 @@ func (graph *SimpleGraph) failIfNotBothNodesInGraph(from Node, to Node) error {
 func (graph *SimpleGraph) Size() int {
 	return graph.nodes.Size()
 }
+
+// Empty returns wether a graph is empty.
+func (graph *SimpleGraph) Empty() bool {
+	return Empty(graph)
+}
