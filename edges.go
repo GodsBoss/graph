@@ -32,3 +32,6 @@ func (edge Edge) Nodes() NodeSet {
 	set.Add(edge.To())
 	return set
 }
+
+// Edges is a list of edges.
+type Edges []*Edge
