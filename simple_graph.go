@@ -110,3 +110,8 @@ func (graph *SimpleGraph) failIfNotBothNodesInGraph(from Node, to Node) error {
 	}
 	return nil
 }
+
+// Size exposes the size of the graph.
+func (graph *SimpleGraph) Size() int {
+	return graph.nodes.Size()
+}
