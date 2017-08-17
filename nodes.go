@@ -27,12 +27,22 @@ func NewNode() Node {
 // NodeList is list of nodes. Duplicates are allowed.
 type NodeList []Node
 
+// Size returns the list's size.
+func (list NodeList) Size() int {
+	return len(list)
+}
+
 // NodeSet is a non-ordered set of nodes. Nodes may appear only once in a node set.
 type NodeSet map[Node]bool
 
 // NewNodeSet creates a new, empty node set.
 func NewNodeSet() NodeSet {
 	return make(NodeSet)
+}
+
+// Size returns the set's size.
+func (set NodeSet) Size() int {
+	return len(set)
 }
 
 // Add adds a node to this set. Returns an error if that node was already in the set.
