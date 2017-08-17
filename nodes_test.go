@@ -69,3 +69,11 @@ func TestNodeExposesItselfAsANodeSet(t *testing.T) {
 		t.Errorf("Expected node set %+v to include %+v", set, node)
 	}
 }
+
+func TestNewNodeListIsEmpty(t *testing.T) {
+	list := graph.NewNodeList()
+
+	if !list.Empty() {
+		t.Errorf("Expected list %+v to be empty, but it wasn't", list)
+	}
+}
