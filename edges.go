@@ -6,6 +6,14 @@ type Edge struct {
 	to   Node
 }
 
+// NewEdge creates a new edge pointing from a node to another.
+func NewEdge(from Node, to Node) *Edge {
+	return &Edge{
+		from: from,
+		to:   to,
+	}
+}
+
 // From returns the edge's from node.
 func (edge Edge) From() Node {
 	return edge.from
