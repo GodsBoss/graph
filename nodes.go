@@ -103,3 +103,9 @@ type NodesExposer interface {
 	// Nodes returns all nodes. The returned set must not be changed.
 	Nodes() NodeSet
 }
+
+// Sizer expose their size.
+type Sizer interface {
+	// Size returns the size.
+	Size() int
+}
