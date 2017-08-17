@@ -187,6 +187,28 @@ func TestRemovingNodeFromSimpleGraphRemovesAllEdges(t *testing.T) {
 	}
 }
 
+func TestSimpleGraphExposesEdges(t *testing.T) {
+	one := graph.NewNode()
+	two := graph.NewNode()
+	three := graph.NewNode()
+
+	gr := graph.NewSimpleGraph()
+	gr.AddNode(one)
+	gr.AddNode(two)
+	gr.AddNode(three)
+
+	gr.Connect(one, two)
+	gr.Connect(one, three)
+	gr.Connect(two, three)
+	gr.Disconnect(one, three)
+
+	edges := gr.Edges()
+
+	if edges.Size() != 2 {
+		t.Errorf("Expected graph to contain %d edges, but got %d edges", 2, edges.Size())
+	}
+}
+
 func twoNodes() (graph.Node, graph.Node) {
 	return graph.NewNode(), graph.NewNode()
 }

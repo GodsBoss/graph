@@ -8,6 +8,7 @@ import (
 type SimpleGraph struct {
 	nodes                 NodeSet
 	connectedNodesPerNode map[Node]NodeSet
+	edges                 Edges
 }
 
 // NewSimpleGraph creates a new simple graph.
@@ -15,6 +16,7 @@ func NewSimpleGraph() *SimpleGraph {
 	return &SimpleGraph{
 		nodes: make(NodeSet),
 		connectedNodesPerNode: map[Node]NodeSet{},
+		edges: NewEdges(),
 	}
 }
 
@@ -73,6 +75,7 @@ func (graph *SimpleGraph) Connect(from Node, to Node) error {
 	}
 	graph.connectedNodesPerNode[from].Add(to)
 	graph.connectedNodesPerNode[to].Add(from)
+	graph.edges.Append(NewEdge(from, to))
 	return nil
 }
 
@@ -101,6 +104,7 @@ func (graph *SimpleGraph) Disconnect(from Node, to Node) error {
 	}
 	graph.connectedNodesPerNode[from].Remove(to)
 	graph.connectedNodesPerNode[to].Remove(from)
+	graph.edges = graph.edges.Without(NewEdge(from, to))
 	return nil
 }
 
@@ -127,4 +131,9 @@ func (graph *SimpleGraph) Size() int {
 // Empty returns wether a graph is empty.
 func (graph *SimpleGraph) Empty() bool {
 	return Empty(graph)
+}
+
+// Edges returns the graph's edges. This list must not be changed.
+func (graph *SimpleGraph) Edges() Edges {
+	return graph.edges
 }
