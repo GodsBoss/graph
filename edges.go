@@ -46,6 +46,18 @@ func (edges *Edges) Append(additionalEdges ...*Edge) {
 	*edges = append(*edges, additionalEdges...)
 }
 
+// Without returns a list without all occurences of the edge.
+func (edges *Edges) Without(edge *Edge) Edges {
+	result := NewEdges()
+	for _, edgeInList := range *edges {
+		if (edge.From() != edgeInList.From() || edge.To() != edgeInList.To()) &&
+			(edge.From() != edgeInList.To() || edge.To() != edgeInList.From()) {
+			result.Append(edgeInList)
+		}
+	}
+	return result
+}
+
 // Size exposes the number of edges.
 func (edges Edges) Size() int {
 	return len(edges)
