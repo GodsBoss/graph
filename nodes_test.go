@@ -36,6 +36,31 @@ func TestNodeSetDoesNotContainRemovedNode(t *testing.T) {
 	}
 }
 
+func TestMergingNoNodeSetsCreatesEmptyNodeSet(t *testing.T) {
+	set := graph.MergeNodeSets()
+
+	if !set.Empty() {
+		t.Errorf("Expected node set %+v to be empty", set)
+	}
+}
+
+func TestMergedNodeSetContainsNodesOfAllSets(t *testing.T) {
+	one, two := twoNodes()
+	set1 := graph.NewNodeSet()
+	set1.Add(one)
+	set2 := graph.NewNodeSet()
+	set2.Add(two)
+
+	set := graph.MergeNodeSets(set1, set2)
+
+	if !set.Contains(one) {
+		t.Errorf("Expected %+v to contain %+v", set, one)
+	}
+	if !set.Contains(two) {
+		t.Errorf("Expected %+v to contain %+v", set, two)
+	}
+}
+
 func TestNodeExposesItselfAsANodeSet(t *testing.T) {
 	node := graph.NewNode()
 	set := node.Nodes()
