@@ -6,15 +6,15 @@ import (
 
 // SimpleGraph is a unidirectional non-weighted graph.
 type SimpleGraph struct {
-	nodes NodeSet
-	edges map[Node]NodeSet
+	nodes                 NodeSet
+	connectedNodesPerNode map[Node]NodeSet
 }
 
 // NewSimpleGraph creates a new simple graph.
 func NewSimpleGraph() *SimpleGraph {
 	return &SimpleGraph{
 		nodes: make(NodeSet),
-		edges: map[Node]NodeSet{},
+		connectedNodesPerNode: map[Node]NodeSet{},
 	}
 }
 
@@ -25,7 +25,7 @@ func (graph *SimpleGraph) AddNode(node Node) error {
 	if err != nil {
 		return err
 	}
-	graph.edges[node] = NewNodeSet()
+	graph.connectedNodesPerNode[node] = NewNodeSet()
 	return nil
 }
 
@@ -41,10 +41,10 @@ func (graph *SimpleGraph) RemoveNode(node Node) error {
 	if err != nil {
 		return err
 	}
-	for edgeNode := range graph.edges[node] {
-		graph.edges[edgeNode].Remove(node)
+	for edgeNode := range graph.connectedNodesPerNode[node] {
+		graph.connectedNodesPerNode[edgeNode].Remove(node)
 	}
-	delete(graph.edges, node)
+	delete(graph.connectedNodesPerNode, node)
 	return nil
 }
 
@@ -63,8 +63,8 @@ func (graph *SimpleGraph) Connect(from Node, to Node) error {
 	if connected {
 		return fmt.Errorf("Nodes already connected")
 	}
-	graph.edges[from].Add(to)
-	graph.edges[to].Add(from)
+	graph.connectedNodesPerNode[from].Add(to)
+	graph.connectedNodesPerNode[to].Add(from)
 	return nil
 }
 
@@ -75,7 +75,7 @@ func (graph *SimpleGraph) Connected(from Node, to Node) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if graph.edges[from].Contains(to) {
+	if graph.connectedNodesPerNode[from].Contains(to) {
 		return true, nil
 	}
 	return false, nil
@@ -91,8 +91,8 @@ func (graph *SimpleGraph) Disconnect(from Node, to Node) error {
 	if !connected {
 		return fmt.Errorf("Nodes are not connected")
 	}
-	graph.edges[from].Remove(to)
-	graph.edges[to].Remove(from)
+	graph.connectedNodesPerNode[from].Remove(to)
+	graph.connectedNodesPerNode[to].Remove(from)
 	return nil
 }
 
