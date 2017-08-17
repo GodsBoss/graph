@@ -145,6 +145,23 @@ func TestSimpleGraphDetectsIfTwoNodesAreConnected(t *testing.T) {
 	}
 }
 
+func TestSimpleGraphDetectsNodesAsDisconnectedAfterDisconnectingThem(t *testing.T) {
+	gr := graph.NewSimpleGraph()
+	from, to := twoNodes()
+	gr.AddNode(from)
+	gr.AddNode(to)
+	gr.Connect(from, to)
+	gr.Disconnect(from, to)
+	connected, err := gr.Connected(from, to)
+
+	if connected {
+		t.Errorf("Expected %+v and %+v in %+v not to be connected", from, to, gr)
+	}
+	if err != nil {
+		t.Errorf("Expected error to be nil, but got %+v", err)
+	}
+}
+
 func TestRemovingNodeFromSimpleGraphRemovesAllEdges(t *testing.T) {
 	gr := graph.NewSimpleGraph()
 	from, to := twoNodes()
