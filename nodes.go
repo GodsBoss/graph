@@ -32,6 +32,11 @@ func (list NodeList) Size() int {
 	return len(list)
 }
 
+// Empty returns wether the list is empty.
+func (list NodeList) Empty() bool {
+	return list.Size() == 0
+}
+
 // NodeSet is a non-ordered set of nodes. Nodes may appear only once in a node set.
 type NodeSet map[Node]bool
 
@@ -43,6 +48,11 @@ func NewNodeSet() NodeSet {
 // Size returns the set's size.
 func (set NodeSet) Size() int {
 	return len(set)
+}
+
+// Empty returns wether the set is empty.
+func (set NodeSet) Empty() bool {
+	return set.Size() == 0
 }
 
 // Add adds a node to this set. Returns an error if that node was already in the set.
