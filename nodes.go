@@ -109,3 +109,8 @@ type Sizer interface {
 	// Size returns the size.
 	Size() int
 }
+
+// Empty returns wether a sizer is empty.
+func Empty(sizer Sizer) bool {
+	return sizer.Size() == 0
+}
