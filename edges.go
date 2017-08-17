@@ -41,6 +41,11 @@ func NewEdges() Edges {
 	return make(Edges, 0)
 }
 
+// Append appends edges to this list of edges.
+func (edges *Edges) Append(additionalEdges ...*Edge) {
+	*edges = append(*edges, additionalEdges...)
+}
+
 // Size exposes the number of edges.
 func (edges Edges) Size() int {
 	return len(edges)
