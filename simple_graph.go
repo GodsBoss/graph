@@ -29,6 +29,14 @@ func (graph *SimpleGraph) AddNode(node Node) error {
 	return nil
 }
 
+// MergeNodeSet merges all nodes of the node set into the graph. It is no error
+// if nodes already included are added.
+func (graph *SimpleGraph) MergeNodeSet(nodes NodeSet) {
+	for node := range nodes {
+		_ = graph.AddNode(node)
+	}
+}
+
 // ContainsNode checks wether graph contains the node.
 func (graph *SimpleGraph) ContainsNode(node Node) bool {
 	return graph.nodes.Contains(node)
