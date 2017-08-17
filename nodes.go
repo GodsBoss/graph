@@ -27,6 +27,11 @@ func NewNode() Node {
 // NodeList is list of nodes. Duplicates are allowed.
 type NodeList []Node
 
+// NewNodeList creates a new, empty node list.
+func NewNodeList() NodeList {
+	return make(NodeList, 0)
+}
+
 // Size returns the list's size.
 func (list NodeList) Size() int {
 	return len(list)
