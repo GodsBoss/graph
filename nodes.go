@@ -66,6 +66,18 @@ func (set NodeSet) Nodes() NodeSet {
 	return set
 }
 
+// MergeNodeSets returns a NodeSet containing the nodes of all node sets given.
+// Without arguments, an empty NodeSet is returned.
+func MergeNodeSets(sets ...NodeSet) NodeSet {
+	set := NewNodeSet()
+	for _, mergeSet := range sets {
+		for node := range mergeSet {
+			_ = set.Add(node)
+		}
+	}
+	return set
+}
+
 // NodesExposer exposes its nodes.
 type NodesExposer interface {
 	// Nodes returns all nodes. The returned set must not be changed.
