@@ -57,6 +57,12 @@ func TestRemovingNodeNotInGraphFails(t *testing.T) {
 	}
 }
 
+func TestFreshSimpleGraphIsEmpty(t *testing.T) {
+	if !graph.NewSimpleGraph().Empty() {
+		t.Errorf("Expected new graph to be empty, but it was not")
+	}
+}
+
 func TestSimpleGraphAllowsConnectingNodes(t *testing.T) {
 	gr := graph.NewSimpleGraph()
 	from, to := twoNodes()
