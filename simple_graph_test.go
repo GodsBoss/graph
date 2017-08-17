@@ -209,6 +209,42 @@ func TestSimpleGraphExposesEdges(t *testing.T) {
 	}
 }
 
+func TestSimpleGraphExposesEdgesForANode(t *testing.T) {
+	one, two := twoNodes()
+	three, four := twoNodes()
+
+	gr := graph.NewSimpleGraph()
+	gr.AddNode(one)
+	gr.AddNode(two)
+	gr.AddNode(three)
+	gr.AddNode(four)
+
+	gr.Connect(one, two)
+	gr.Connect(four, one)
+	gr.Connect(three, four)
+
+	edges, err := gr.NodeEdges(one)
+
+	if err != nil {
+		t.Errorf("Expected error to be nil, but got %+v", err)
+	}
+	if edges.Size() != 2 {
+		t.Errorf("Expected number of edges to be %d, but got %d", 2, edges.Size())
+	}
+
+	for _, edge := range edges {
+		if edge.From() != one && edge.To() != one {
+			t.Errorf("Expected only edges with the given node, but got %+v", edge)
+		}
+	}
+
+	for _, edge := range edges {
+		if edge.From() == three || edge.To() == three {
+			t.Errorf("Expected no edges with node %+v, but %+v contained it", three, edge)
+		}
+	}
+}
+
 func twoNodes() (graph.Node, graph.Node) {
 	return graph.NewNode(), graph.NewNode()
 }

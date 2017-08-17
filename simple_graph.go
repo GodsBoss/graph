@@ -137,3 +137,16 @@ func (graph *SimpleGraph) Empty() bool {
 func (graph *SimpleGraph) Edges() Edges {
 	return graph.edges
 }
+
+// NodeEdges returns all edges for the given node. Signals an error if the node
+// does not belong to the graph.
+func (graph *SimpleGraph) NodeEdges(node Node) (Edges, error) {
+	if !graph.ContainsNode(node) {
+		return nil, fmt.Errorf("Node not contained in graph")
+	}
+	edges := NewEdges()
+	for toNode := range graph.connectedNodesPerNode[node] {
+		edges.Append(NewEdge(node, toNode))
+	}
+	return edges, nil
+}
