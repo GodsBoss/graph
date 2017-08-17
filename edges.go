@@ -36,6 +36,11 @@ func (edge Edge) Nodes() NodeSet {
 // Edges is a list of edges.
 type Edges []*Edge
 
+// NewEdges creates a new, empty list of edges.
+func NewEdges() Edges {
+	return make(Edges, 0)
+}
+
 // Size exposes the number of edges.
 func (edges Edges) Size() int {
 	return len(edges)
