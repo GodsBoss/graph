@@ -24,8 +24,8 @@ func NewNode() Node {
 	}
 }
 
-// Nodes is list of nodes. Duplicates are allowed.
-type Nodes []Node
+// NodeList is list of nodes. Duplicates are allowed.
+type NodeList []Node
 
 // NodeSet is a non-ordered set of nodes. Nodes may appear only once in a node set.
 type NodeSet map[Node]bool
