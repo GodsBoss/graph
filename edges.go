@@ -40,3 +40,8 @@ type Edges []*Edge
 func (edges Edges) Size() int {
 	return len(edges)
 }
+
+// Empty checks wether edges is empty.
+func (edges Edges) Empty() bool {
+	return Empty(edges)
+}
