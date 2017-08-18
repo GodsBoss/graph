@@ -103,6 +103,18 @@ func MergeNodeSets(sets ...NodeSet) NodeSet {
 	return set
 }
 
+// DiffNodeSet returns the node set which contains all nodes of the original
+// which are not found in the removeSet.
+func DiffNodeSet(originalSet NodeSet, removeSet NodeSet) NodeSet {
+	set := NewNodeSet()
+	for node := range originalSet {
+		if !removeSet.Contains(node) {
+			set.Add(node)
+		}
+	}
+	return set
+}
+
 // NodesExposer exposes its nodes.
 type NodesExposer interface {
 	// Nodes returns all nodes. The returned set must not be changed.

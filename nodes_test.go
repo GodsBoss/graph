@@ -61,6 +61,25 @@ func TestMergedNodeSetContainsNodesOfAllSets(t *testing.T) {
 	}
 }
 
+func TestNodeSetDiffContainsNodesNotRemoved(t *testing.T) {
+	one, two := twoNodes()
+	set := graph.NewNodeSet()
+	set.Add(one)
+	set.Add(two)
+
+	diffSet := graph.NewNodeSet()
+	diffSet.Add(one)
+
+	diffedSet := graph.DiffNodeSet(set, diffSet)
+
+	if !diffedSet.Contains(two) {
+		t.Errorf("Expected diffed set to contain %+v", two)
+	}
+	if diffedSet.Contains(one) {
+		t.Errorf("Expected diffed set not to contain %+v", one)
+	}
+}
+
 func TestNodeExposesItselfAsANodeSet(t *testing.T) {
 	node := graph.NewNode()
 	set := node.Nodes()
