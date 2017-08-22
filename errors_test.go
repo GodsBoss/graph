@@ -7,8 +7,8 @@ import (
 	"testing"
 )
 
-func TestNodesNotContainedInGraphFromErrorReturnsNoNodesForArbitraryErrors(t *testing.T) {
-	nodes, _ := graph.NodesNotContainedInGraphFromError(fmt.Errorf("Some error"))
+func TestNodesNotContainedFromErrorReturnsNoNodesForArbitraryErrors(t *testing.T) {
+	nodes, _ := graph.NodesNotContainedFromError(fmt.Errorf("Some error"))
 
 	if len(nodes) > 0 {
 		t.Errorf("Expected no nodes, but got %+v", nodes)

@@ -4,25 +4,25 @@ import (
 	"fmt"
 )
 
-type nodesNotContainedInGraphError map[string]Node
+type nodesNotContainedError map[string]Node
 
-func (err nodesNotContainedInGraphError) nodes() map[string]Node {
+func (err nodesNotContainedError) nodes() map[string]Node {
 	return map[string]Node(err)
 }
 
-// Error lets nodesNotContainedInGraphError implement error.
-func (err nodesNotContainedInGraphError) Error() string {
+// Error lets nodesNotContainedError implement error.
+func (err nodesNotContainedError) Error() string {
 	nodeNames := []string{}
 	for name := range err {
 		nodeNames = append(nodeNames, name)
 	}
-	return fmt.Sprintf("nodes not contained in graph: %+v", nodeNames)
+	return fmt.Sprintf("nodes not contained: %+v", nodeNames)
 }
 
-// NodesNotContainedInGraphFromError checks if the error given is an error
+// NodesNotContainedFromError checks if the error given is an error
 // signaling that nodes are not contained in a graph. If it is, the nodes are
 // returned. The second return value determines if it was such an error at all.
-func NodesNotContainedInGraphFromError(err error) (map[string]Node, bool) {
+func NodesNotContainedFromError(err error) (map[string]Node, bool) {
 	nodesProvider, ok := err.(interface {
 		nodes() map[string]Node
 	})
