@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// SimpleGraph is a unidirectional non-weighted graph.
+// SimpleGraph is a unidirectional non-weighted graph without multiple edges or loops.
 type SimpleGraph struct {
 	nodes                 NodeSet
 	connectedNodesPerNode map[Node]NodeSet
