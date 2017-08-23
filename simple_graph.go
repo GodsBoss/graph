@@ -82,7 +82,12 @@ func (graph *SimpleGraph) Connect(from Node, to Node) error {
 // Connected returns wether two nodes of the graph are connected. If one or both
 // nodes are not part of the graph, an error is returned.
 func (graph *SimpleGraph) Connected(from Node, to Node) (bool, error) {
-	err := graph.failIfNotBothNodesInGraph(from, to)
+	err := graph.failIfNodesNotInGraph(
+		map[string]Node{
+			"from": from,
+			"to":   to,
+		},
+	)
 	if err != nil {
 		return false, err
 	}
@@ -108,15 +113,12 @@ func (graph *SimpleGraph) Disconnect(from Node, to Node) error {
 	return nil
 }
 
-func (graph *SimpleGraph) failIfNotBothNodesInGraph(from Node, to Node) error {
-	fromOK := graph.ContainsNode(from)
-	toOK := graph.ContainsNode(to)
+func (graph *SimpleGraph) failIfNodesNotInGraph(nodes map[string]Node) error {
 	nodesNotContained := map[string]Node{}
-	if !fromOK {
-		nodesNotContained["from"] = from
-	}
-	if !toOK {
-		nodesNotContained["to"] = to
+	for name, node := range nodes {
+		if !graph.ContainsNode(node) {
+			nodesNotContained[name] = node
+		}
 	}
 	if len(nodesNotContained) > 0 {
 		return nodesNotContainedError(nodesNotContained)
