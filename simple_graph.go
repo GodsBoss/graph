@@ -144,8 +144,9 @@ func (graph *SimpleGraph) Edges() Edges {
 // NodeEdges returns all edges for the given node. Signals an error if the node
 // does not belong to the graph.
 func (graph *SimpleGraph) NodeEdges(node Node) (Edges, error) {
-	if !graph.ContainsNode(node) {
-		return nil, fmt.Errorf("Node not contained in graph")
+	err := graph.failIfNodesNotInGraph(map[string]Node{"node": node})
+	if err != nil {
+		return nil, err
 	}
 	edges := NewEdges()
 	for toNode := range graph.connectedNodesPerNode[node] {
