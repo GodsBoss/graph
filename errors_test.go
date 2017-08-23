@@ -1,7 +1,7 @@
 package graph_test
 
 import (
-	"github.com/godsboss/graph"
+	"github.com/GodsBoss/graph"
 
 	"fmt"
 	"testing"
