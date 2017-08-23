@@ -111,14 +111,15 @@ func (graph *SimpleGraph) Disconnect(from Node, to Node) error {
 func (graph *SimpleGraph) failIfNotBothNodesInGraph(from Node, to Node) error {
 	fromOK := graph.ContainsNode(from)
 	toOK := graph.ContainsNode(to)
-	if (!fromOK) && (!toOK) {
-		return fmt.Errorf("Both nodes not contained in graph")
-	}
+	nodesNotContained := map[string]Node{}
 	if !fromOK {
-		return fmt.Errorf("from node not contained in graph")
+		nodesNotContained["from"] = from
 	}
 	if !toOK {
-		return fmt.Errorf("to node not contained in graph")
+		nodesNotContained["to"] = to
+	}
+	if len(nodesNotContained) > 0 {
+		return nodesNotContainedError(nodesNotContained)
 	}
 	return nil
 }
