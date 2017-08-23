@@ -80,6 +80,25 @@ func TestNodeSetDiffContainsNodesNotRemoved(t *testing.T) {
 	}
 }
 
+func TestNodeSetExposesNodesAsSet(t *testing.T) {
+	set := graph.NewNodeSet()
+	n1 := graph.NewNode()
+	n2 := graph.NewNode()
+	n3 := graph.NewNode()
+
+	set.Add(n1)
+	set.Add(n2)
+	set.Add(n3)
+
+	newSet := set.Nodes()
+
+	for _, node := range []graph.Node{n1, n2, n3} {
+		if !newSet.Contains(node) {
+			t.Errorf("Expected %+v to contain %+v", newSet, node)
+		}
+	}
+}
+
 func TestNodeExposesItselfAsANodeSet(t *testing.T) {
 	node := graph.NewNode()
 	set := node.Nodes()
