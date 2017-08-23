@@ -46,7 +46,7 @@ func (edges *Edges) Append(additionalEdges ...*Edge) {
 	*edges = append(*edges, additionalEdges...)
 }
 
-// Without returns a list without all occurences of the edge.
+// Without returns a list without all occurrences of the edge.
 func (edges *Edges) Without(edge *Edge) Edges {
 	result := NewEdges()
 	for _, edgeInList := range *edges {
