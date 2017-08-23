@@ -7,6 +7,6 @@ go:
 install: true
 
 script:
-  go vet
-  ./test.sh
-  ./html-coverage.sh
+  - go vet
+  - ./test.sh
+  - ./html-coverage.sh
